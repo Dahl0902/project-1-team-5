@@ -1,0 +1,28 @@
+SELECT *
+FROM (SELECT People.playerID, People.birthYear, People.birthMonth, People.birthDay, People.birthCountry, People.birthState, People.birthCity, 
+People.nameFirst & " " & People.nameLast AS fullName, People.weight, People.height, People.bats, People.throws, People.debut, People.finalGame, 
+PositionTable.PrimaryPosition, BattingTable.CareerG, BattingTable.CareerAB, BattingTable.CareerR, BattingTable.CareerH, BattingTable.CareerDoubles, 
+BattingTable.CareerTriples, BattingTable.CareerHR, BattingTable.CareerRBI, BattingTable.CareerSB, BattingTable.CareerCS, 
+BattingTable.CareerBB, BattingTable.CareerSO, BattingTable.CareerIBB, BattingTable.CareerHBP, BattingTable.CareerSH, BattingTable.CareerSF, BattingTable.CareerGDP 
+FROM (People 
+INNER JOIN (SELECT MyFieldingTable.playerID, MAX(Fielding.POS) AS PrimaryPosition 
+FROM (SELECT Fielding.playerID, Fielding.POS, SUM(Fielding.G) AS CareerGames 
+FROM Fielding 
+GROUP BY Fielding.playerID, Fielding.POS)  AS MyFieldingTable 
+GROUP BY MyFieldingTable.playerID)  AS PositionTable 
+ON People.playerID = PositionTable.playerID) 
+INNER JOIN (SELECT Batting.playerID, SUM(Batting.G) AS CareerG, SUM(Batting.AB) AS CareerAB, SUM(Batting.R) AS CareerR, SUM(Batting.H) AS CareerH, 
+SUM(Batting.[2B]) AS CareerDoubles, SUM(Batting.[3B]) AS CareerTriples, SUM(Batting.HR) AS CareerHR, SUM(Batting.RBI) AS CareerRBI, 
+SUM(Batting.SB) AS CareerSB, SUM(Batting.CS) AS CareerCS, SUM(Batting.BB) AS CareerBB, SUM(Batting.SO) AS CareerSO, 
+SUM(Batting.IBB) AS CareerIBB, SUM(Batting.HBP) AS CareerHBP, SUM(Batting.SH) AS CareerSH, SUM(Batting.SF) AS CareerSF, SUM(Batting.GIDP) AS CareerGDP 
+FROM Batting 
+GROUP BY Batting.playerID)  AS BattingTable 
+ON PositionTable.playerID = BattingTable.playerID)  AS HittingStats 
+LEFT JOIN (SELECT Pitching.playerID, SUM(Pitching.W) AS CareerW, SUM(Pitching.L) AS CareerL, SUM(Pitching.G) AS CareerGP, SUM(Pitching.GS) AS CareerGS, 
+SUM(Pitching.CG) AS CareerCG, SUM(Pitching.SHO) AS CareerSHO, SUM(Pitching.SV) AS CareerSV, SUM(Pitching.IPouts) AS CareerIPouts, SUM(Pitching.H) AS CareerHA, 
+SUM(Pitching.ER) AS CareerER, SUM(Pitching.HR) AS CareerHRA, SUM(Pitching.BB) AS CareerBBA, SUM(Pitching.SO) AS CareerK, SUM(Pitching.IBB) AS CareerIBBA, 
+SUM(Pitching.WP) AS CareerWP, SUM(Pitching.HBP) AS CareerHBP, SUM(Pitching.BK) AS CareerBK, SUM(Pitching.BFP) AS CareerBFP, SUM(Pitching.GF) AS CareerGF, 
+SUM(Pitching.R) AS CareerRA, SUM(Pitching.SH) AS CareerSHA, SUM(Pitching.SF) AS CareerSFA, SUM(Pitching.GIDP) AS CareerGIDPA
+FROM Pitching 
+GROUP BY Pitching.playerID)  AS PitchingStats 
+ON HittingStats.playerID = PitchingStats.playerID;
