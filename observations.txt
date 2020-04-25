@@ -1,0 +1,10 @@
+Where do players come from?
+The majority of professional baseball players come from the US, which is to be expected because this is the country where the league is held. The import of foreign players has been on the rise since the 1960’s with around 30% of the current players coming from different countries. 
+
+When looking at the US there are a few player hotspots which are represented in the heat map. Most of the popular areas also have a high population. The one that sticks out is the hotspot around Kansas and  Oklahoma. 
+
+Homeruns vs BMI?
+We examined the relationship between homeruns and BMI because of the issue of steroids. This is a hot topic in the world of baseball especially in relation to homerun records. Our test showed a small correlation between BMI and number of career homeruns. This data could be further tested by focusing on the players who hit over a certain amount of homeruns. There was a lot of players with fewer than 100 homeruns. In baseball the only way you have a long career is by doing well, so it would make sense that there would be a large grouping at bottom.
+
+Career strikeouts Vs Height
+We examined the relationship between strikeouts and pitcher height. We looked at this because there is a theory that tall pitchers will get more strikeout. We did not find enough evidence to support this theory. The same idea applies to this test as the homerun vs BMI. The good players stay in the league longer and will have more time to get strikeouts.
